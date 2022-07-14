@@ -15,49 +15,50 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.naming.NamingException;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 @Configuration
-@EnableJpaRepositories("lk.easyCarRental.spring.repo")
+@EnableJpaRepositories(basePackages = "lk.easyCarRental.spring.repo")
 @EnableTransactionManagement
 @PropertySource("classpath:application.properties")
 public class JPAConfig {
-    
+
     @Autowired
-    Environment environment;
+    Environment env;
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean(DataSource ds, JpaVendorAdapter va){
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource ds, JpaVendorAdapter va) {
         LocalContainerEntityManagerFactoryBean bean = new LocalContainerEntityManagerFactoryBean();
         bean.setJpaVendorAdapter(va);
         bean.setDataSource(ds);
-        bean.setPackagesToScan(environment.getRequiredProperty("entity.package.name"));
+        bean.setPackagesToScan(env.getRequiredProperty("entity.package.name"));
         return bean;
     }
 
     @Bean
-    public DataSource dataSource(){
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setUrl(environment.getRequiredProperty("database.url"));
-        dataSource.setUsername(environment.getRequiredProperty("database.username"));
-        dataSource.setPassword(environment.getRequiredProperty("database.password"));
-        dataSource.setDriverClassName(environment.getRequiredProperty("database.driverClassName"));
+    public DataSource dataSource() {
+        DriverManagerDataSource dataSource= new DriverManagerDataSource();
+        dataSource.setUrl(env.getRequiredProperty("database.url"));
+        dataSource.setUsername(env.getRequiredProperty("database.username"));
+        dataSource.setPassword(env.getRequiredProperty("database.password"));
+        dataSource.setDriverClassName(env.getRequiredProperty("database.driverClassName"));
         return dataSource;
     }
 
     @Bean
-    public JpaVendorAdapter jpaVendorAdapter(){
-        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        vendorAdapter.setDatabasePlatform(environment.getRequiredProperty("database.dialect"));
-        vendorAdapter.setDatabase(Database.MYSQL);
-        vendorAdapter.setShowSql(true);
-        vendorAdapter.setGenerateDdl(true);
-        return vendorAdapter;
+    public JpaVendorAdapter jpaVendorAdapter() {
+        HibernateJpaVendorAdapter vendor = new HibernateJpaVendorAdapter();
+        vendor.setDatabasePlatform(env.getRequiredProperty("database.dialect"));
+        vendor.setDatabase(Database.MYSQL);
+        vendor.setShowSql(true);
+        vendor.setGenerateDdl(true);
+        return vendor;
     }
 
     @Bean
-    public PlatformTransactionManager transactionManager(EntityManagerFactory emf){
+    public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
         return new JpaTransactionManager(emf);
     }
 }
