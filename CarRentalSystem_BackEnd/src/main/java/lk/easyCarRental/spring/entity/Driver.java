@@ -5,8 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,4 +24,7 @@ public class Driver {
     private String driverAddress;
     private String driverContactNumber;
     private int driverAge;
+
+    @OneToMany(mappedBy = "driver",cascade = CascadeType.ALL)
+    private List<Booking> bookings;
 }

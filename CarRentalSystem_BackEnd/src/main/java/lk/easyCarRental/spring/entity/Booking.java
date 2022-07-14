@@ -5,8 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -23,4 +22,16 @@ public class Booking {
     private LocalDate endDate;
     private double ldwPayment;
     private double cost;
+
+    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.DETACH})
+    @JoinColumn(name="idCustomer",referencedColumnName = "customerId")
+    private Customer customer;
+
+    @ManyToOne(cascade = {CascadeType.REFRESH,CascadeType.DETACH})
+    @JoinColumn(name = "idCar",referencedColumnName = "carId")
+    private Car car;
+
+    @ManyToOne(cascade = {CascadeType.REFRESH,CascadeType.DETACH})
+    @JoinColumn(name = "idDriver",referencedColumnName = "driverId")
+    private Driver driver;
 }

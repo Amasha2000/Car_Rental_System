@@ -5,8 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,4 +27,11 @@ public class Car {
     private double monthlyRentPrice;
     private double extraKMPrice;
     private String fuelType;
+
+    @OneToMany(mappedBy = "car",cascade = CascadeType.ALL)
+    private List<Booking> booking;
+
+    @ManyToOne(cascade = {CascadeType.REFRESH,CascadeType.DETACH})
+    @JoinColumn(name = "admin",referencedColumnName = "adminId")
+    private Admin admin;
 }
