@@ -6,8 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,9 +15,9 @@ import java.time.LocalTime;
 public class Booking {
     @Id
     private String bookingId;
-    private LocalTime time;
-    private LocalDate startingDate;
-    private LocalDate endDate;
+    private String time;
+    private String startingDate;
+    private String endDate;
     private double ldwPayment;
     private double cost;
 
