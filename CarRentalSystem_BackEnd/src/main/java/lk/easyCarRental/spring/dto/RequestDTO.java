@@ -3,19 +3,16 @@ package lk.easyCarRental.spring.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import java.util.List;
 
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
-@ToString
-public class BookingDTO {
-    private String bookingId;
+public class RequestDTO {
+    private String rid;
     private CustomerDTO customer;
-    private String date;
-    private double cost;
+    private double total_fee;
     private String bank_slip;
-    private List<BookingDetailDTO> booking_detail_list;
+    private List<RequestDetailDTO> request_detail_list;
 }

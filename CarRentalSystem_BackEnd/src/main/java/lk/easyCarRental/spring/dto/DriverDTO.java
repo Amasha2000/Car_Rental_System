@@ -12,11 +12,12 @@ import lombok.ToString;
 public class DriverDTO {
     private String driverId;
     private String driverName;
-    private String driverEmail;
-    private String driverPassword;
+    private UserDTO userDTO;
     private String driverNicNumber;
     private String driverLicenseNumber;
     private String driverAddress;
     private String driverContactNumber;
-    private int driverAge;
+    private String nic_image;
+    private String dr_license_image;
+    private String availability;
 }
