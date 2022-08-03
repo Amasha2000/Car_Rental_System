@@ -1,7 +1,6 @@
 package lk.easyCarRental.spring.controller;
 
 import lk.easyCarRental.spring.dto.AdminDTO;
-import lk.easyCarRental.spring.service.AdminService;
 import lk.easyCarRental.spring.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

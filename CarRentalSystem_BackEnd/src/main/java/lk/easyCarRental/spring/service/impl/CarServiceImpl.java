@@ -2,6 +2,8 @@ package lk.easyCarRental.spring.service.impl;
 
 import lk.easyCarRental.spring.dto.CarDTO;
 import lk.easyCarRental.spring.entity.Car;
+import lk.easyCarRental.spring.entity.CarDetail;
+import lk.easyCarRental.spring.exception.ValidationException;
 import lk.easyCarRental.spring.repo.CarRepo;
 import lk.easyCarRental.spring.service.CarService;
 import org.modelmapper.ModelMapper;
@@ -11,55 +13,86 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
 public class CarServiceImpl implements CarService {
 
     @Autowired
-    CarRepo carRepo;
+    private CarRepo vehicleRepo;
 
     @Autowired
-    ModelMapper modelMapper;
+    private ModelMapper mapper;
 
     @Override
-    public void saveCar(CarDTO carDTO) {
-        if(!carRepo.existsById(carDTO.getCarId())){
-            carRepo.save(modelMapper.map(carDTO, Car.class));
-        }else {
-            throw new RuntimeException("Car Already Exists");
+    public void saveCar(CarDTO dto) {
+        /*if (vehicleRepo.existsById(dto.getVid())) {
+            throw new ValidationException("Vehicle is already in the system!");
+        } else {
+            Vehicle vehicle = mapper.map(dto, Vehicle.class);
+            vehicleRepo.save(vehicle);
+        }*/
+        Car vehicle = mapper.map(dto, Car.class);
+        vehicleRepo.save(vehicle);
+    }
+
+    @Override
+    public void deleteCarCategory(String id) {
+        if (vehicleRepo.existsById(id)) {
+            vehicleRepo.deleteById(id);
+        } else {
+            throw new ValidationException("There is no any matching Vehicle Category in the system!");
         }
     }
 
     @Override
-    public void updateCar(CarDTO carDTO) {
-        if(carRepo.existsById(carDTO.getCarId())){
-            carRepo.save(modelMapper.map(carDTO,Car.class));
-        }else {
-            throw new RuntimeException("No such a car to update");
-        }
-    }
-
-    @Override
-    public void deleteCar(String id) {
-        if(carRepo.existsById(id)){
-            carRepo.deleteById(id);
-        }else {
-            throw new RuntimeException("No such a car to delete");
-        }
-    }
-
-    @Override
-    public CarDTO searchCar(String id) {
-        if(carRepo.existsById(id)){
-            return modelMapper.map(carRepo.findById(id).get(),CarDTO.class);
-        }else{
-            throw new RuntimeException("No such a Car");
+    public void updateCar(CarDTO dto) {
+        if (vehicleRepo.existsById(dto.getCarId())) {
+            Car vehicle = mapper.map(dto, Car.class);
+            vehicleRepo.save(vehicle);
+        } else {
+            throw new ValidationException("There is no any matching Vehicle Category in the system!");
         }
     }
 
     @Override
     public ArrayList<CarDTO> getAllCars() {
-        return modelMapper.map(carRepo.findAll(),new TypeToken<ArrayList<CarDTO>>(){}.getType());
+        List<Car> all = vehicleRepo.findAll();
+        return mapper.map(all, new TypeToken<ArrayList<CarDTO>>() {
+        }.getType());
+    }
+
+    @Override
+    public ArrayList<CarDTO> findAllAvailableVehicles() {
+        List<Car> all = vehicleRepo.findAll();
+        for (int i = 0; i < all.size(); i++) {
+            for (int j = 0; j < all.get(i).getVehicleDetailList().size(); j++) {
+                //remove unavailable & currently maintaining vehicles from the list
+                CarDetail vd = all.get(i).getVehicleDetailList().get(j);
+                if (vd.getAvailability().equalsIgnoreCase("unavailable") || vd.getMaintenance().equalsIgnoreCase("yes")) {
+                    all.get(i).getVehicleDetailList().remove(j);
+                }
+            }
+        }
+        return mapper.map(all, new TypeToken<ArrayList<CarDTO>>() {
+        }.getType());
+    }
+
+    @Override
+    public CarDTO searchCar(String id) {
+        Optional<Car> v = vehicleRepo.findById(id);
+        if (v.isPresent()) {
+            Car vehicle = v.get();
+            return mapper.map(vehicle, CarDTO.class);
+        } else {
+            throw new ValidationException("There is no any matching Vehicle in the system!");
+        }
+    }
+
+    @Override
+    public String getLastVid() {
+        return vehicleRepo.getLastVid();
     }
 }

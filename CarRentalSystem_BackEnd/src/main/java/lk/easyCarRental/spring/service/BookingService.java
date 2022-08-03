@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 public interface BookingService {
     void addBooking(BookingDTO dto);
-    void updateBooking(BookingDTO dto);
-    void deleteBooking(String id);
-    BookingDTO searchBooking(String id);
+    String getLastBookingId();
     ArrayList<BookingDTO> getAllBookings();
+    void updateBooking(String id, double fee);
+
 }

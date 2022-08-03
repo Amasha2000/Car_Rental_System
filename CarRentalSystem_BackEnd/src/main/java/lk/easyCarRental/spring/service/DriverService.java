@@ -5,9 +5,11 @@ import lk.easyCarRental.spring.dto.DriverDTO;
 import java.util.ArrayList;
 
 public interface DriverService {
-    void saveDriver(DriverDTO driverDTO);
-    void updateDriver(DriverDTO driverDTO);
-    void deleteDriver(String id);
-    DriverDTO searchDriver(String id);
+    String getLastDid();
+
+    void updateDriverAvailability(String id);
+
+    DriverDTO getDriverById(String id);
+
     ArrayList<DriverDTO> getAllDrivers();
 }
