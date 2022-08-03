@@ -1,5 +1,6 @@
 package lk.easyCarRental.spring.entity;
 
+import lk.easyCarRental.spring.dto.UserDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,14 +18,14 @@ public class Driver {
     @Id
     private String driverId;
     private String driverName;
-    private String driverEmail;
-    private String driverPassword;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "uid", referencedColumnName = "uid")
+    private User user;
     private String driverNicNumber;
     private String driverLicenseNumber;
     private String driverAddress;
     private String driverContactNumber;
-    private int driverAge;
-
-    @OneToMany(mappedBy = "driver",cascade = CascadeType.ALL)
-    private List<Booking> bookings;
+    private String nic_image;
+    private String dr_license_image;
+    private String availability;
 }

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,21 +16,13 @@ import javax.persistence.*;
 public class Booking {
     @Id
     private String bookingId;
-    private String time;
-    private String startingDate;
-    private String endDate;
-    private double ldwPayment;
+    private String date;
     private double cost;
+    private String bank_slip;
+    @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL)
+    private List<BookingDetail> booking_detail_list;
 
     @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.DETACH})
-    @JoinColumn(name="idCustomer",referencedColumnName = "customerId")
+    @JoinColumn(name="cid",referencedColumnName = "customerId")
     private Customer customer;
-
-    @ManyToOne(cascade = {CascadeType.REFRESH,CascadeType.DETACH})
-    @JoinColumn(name = "idCar",referencedColumnName = "carId")
-    private Car car;
-
-    @ManyToOne(cascade = {CascadeType.REFRESH,CascadeType.DETACH})
-    @JoinColumn(name = "idDriver",referencedColumnName = "driverId")
-    private Driver driver;
 }

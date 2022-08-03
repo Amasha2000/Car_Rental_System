@@ -5,8 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,5 +16,8 @@ public class Admin {
     @Id
     private String adminId;
     private String adminName;
-    private String adminPassword;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "uid", referencedColumnName = "uid")
+    private User user;
 }

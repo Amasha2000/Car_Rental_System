@@ -11,11 +11,11 @@
   <component name="ChangeListManager">
     <list default="true" id="7baab016-6ad2-4a0d-907f-01e3a089cd9d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarRentalSystem_BackEnd/src/main/java/lk/easyCarRental/spring/dto/AdminDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarRentalSystem_BackEnd/src/main/java/lk/easyCarRental/spring/dto/AdminDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarRentalSystem_BackEnd/src/main/java/lk/easyCarRental/spring/dto/BookingDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarRentalSystem_BackEnd/src/main/java/lk/easyCarRental/spring/dto/BookingDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarRentalSystem_BackEnd/src/main/java/lk/easyCarRental/spring/dto/CarDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarRentalSystem_BackEnd/src/main/java/lk/easyCarRental/spring/dto/CarDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarRentalSystem_BackEnd/src/main/java/lk/easyCarRental/spring/dto/CustomerDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarRentalSystem_BackEnd/src/main/java/lk/easyCarRental/spring/dto/CustomerDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarRentalSystem_BackEnd/src/main/java/lk/easyCarRental/spring/dto/DriverDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarRentalSystem_BackEnd/src/main/java/lk/easyCarRental/spring/dto/DriverDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarRentalSystem_BackEnd/src/main/java/lk/easyCarRental/spring/entity/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarRentalSystem_BackEnd/src/main/java/lk/easyCarRental/spring/entity/Admin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarRentalSystem_BackEnd/src/main/java/lk/easyCarRental/spring/entity/Booking.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarRentalSystem_BackEnd/src/main/java/lk/easyCarRental/spring/entity/Booking.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarRentalSystem_BackEnd/src/main/java/lk/easyCarRental/spring/entity/Car.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarRentalSystem_BackEnd/src/main/java/lk/easyCarRental/spring/entity/Car.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarRentalSystem_BackEnd/src/main/java/lk/easyCarRental/spring/entity/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarRentalSystem_BackEnd/src/main/java/lk/easyCarRental/spring/entity/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarRentalSystem_BackEnd/src/main/java/lk/easyCarRental/spring/entity/Driver.java" beforeDir="false" afterPath="$PROJECT_DIR$/CarRentalSystem_BackEnd/src/main/java/lk/easyCarRental/spring/entity/Driver.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -175,7 +175,8 @@
       <workItem from="1658111757571" duration="1146000" />
       <workItem from="1658458647323" duration="372000" />
       <workItem from="1658499014106" duration="174000" />
-      <workItem from="1659457043227" duration="3868000" />
+      <workItem from="1659457043227" duration="8616000" />
+      <workItem from="1659498488712" duration="2568000" />
     </task>
     <servers />
   </component>
