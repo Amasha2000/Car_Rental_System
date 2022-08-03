@@ -7,46 +7,40 @@ import lk.easyCarRental.spring.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 @RestController
 @CrossOrigin
-@RequestMapping("api/v1/book")
+@RequestMapping("/booking")
 public class BookingController {
 
     @Autowired
     BookingService bookingService;
 
-    @ResponseStatus(HttpStatus.CREATED)
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil viewBookingDetails(){
-        return new ResponseUtil(200,"ok",bookingService.getAllBookings());
-    }
-
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil addBooking(@ModelAttribute BookingDTO dto){
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity addBooking(@RequestBody BookingDTO dto) {
         bookingService.addBooking(dto);
-        return new ResponseUtil(200,"Booking Added",null);
+        return new ResponseEntity(new ResponseUtil(200, "Booking was successful!", dto), HttpStatus.CREATED);
     }
 
-    @ResponseStatus(HttpStatus.CREATED)
-    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil updateBooking(@RequestBody BookingDTO dto){
-        bookingService.updateBooking(dto);
-        return new ResponseUtil(200,"Booking Updated",null);
+    @GetMapping
+    public ResponseEntity getAllBookings() {
+        ArrayList<BookingDTO> all = bookingService.getAllBookings();
+        return new ResponseEntity(new ResponseUtil(200, "Done", all), HttpStatus.OK);
     }
 
-    @ResponseStatus(HttpStatus.CREATED)
-    @DeleteMapping(params = {"id"},produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil deleteBooking(@RequestParam String id){
-        bookingService.deleteBooking(id);
-        return new ResponseUtil(200,"Booking Deleted",null);
+    @GetMapping(path = "/last_id")
+    public ResponseEntity getLastBookingId() {
+        String lastBookingId = bookingService.getLastBookingId();
+        return new ResponseEntity(new ResponseUtil(200, "Done", lastBookingId), HttpStatus.OK);
     }
 
-    @ResponseStatus(HttpStatus.CREATED)
-    @GetMapping(path ="/{id}" ,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil searchBooking(@PathVariable String id){
-        return new ResponseUtil(200,"OK", bookingService.searchBooking(id));
+    @PutMapping(params = {"id", "fee"})
+    public ResponseEntity updateBooking(@RequestParam String id, @RequestParam double fee) {
+        bookingService.updateBooking(id, fee);
+        return new ResponseEntity(new ResponseUtil(200, "Booking details updated!", null), HttpStatus.OK);
     }
 }
